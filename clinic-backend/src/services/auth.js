@@ -32,31 +32,6 @@ const register = async (login, password) => {
   };
 };
 
-const userLogin = async (login, password) => {
-  const user = await User.findOne({ login });
-
-  if (!user) {
-    throw badRequest("Invalid login or password");
-  }
-
-  const isValidPassword = await bcrypt.compare(password, user.password);
-
-  if (!isValidPassword) {
-    throw badRequest("Invalid login or password");
-  }
-
-  const userData = userDto(user);
-  const tokens = generateTokens({ userId: user._id, login: user.login });
-  await saveRefreshToken(tokens.refreshToken, user._id);
-
-  return {
-    user: userData,
-    accessToken: tokens.accessToken,
-    refreshToken: tokens.refreshToken,
-  };
-};
-
 module.exports = {
-  register,
-  userLogin,
+  register
 };

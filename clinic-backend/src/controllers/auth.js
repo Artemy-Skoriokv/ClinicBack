@@ -29,21 +29,4 @@ const register = async (req, res, next) => {
   }
 };
 
-const userLogin = async (req, res, next) => {
-  try {
-    const { login, password } = req.body;
-    const { user, accessToken, refreshToken } = await authService.userLogin(
-      login,
-      password,
-    );
-
-    res.cookie("refreshToken", refreshToken, refreshTokenOpions);
-    res.cookie("accessToken", accessToken, accessTokenOpions);
-
-    res.json({ user });
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { register, userLogin };
+module.exports = { register };
