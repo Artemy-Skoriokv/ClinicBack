@@ -46,19 +46,4 @@ const userLogin = async (req, res, next) => {
   }
 };
 
-const logout = async (req, res, next) => {
-  try {
-    const { refreshToken } = req.cookies;
-
-    const removeToken = await authService.logout(refreshToken);
-
-    res.clearCookie("refreshToken");
-    res.clearCookie("accessToken");
-
-    return res.json(removeToken);
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { register, userLogin, logout };
+module.exports = { register, userLogin };

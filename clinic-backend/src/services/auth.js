@@ -6,7 +6,6 @@ const {
 } = require("./tokens");
 const { badRequest } = require("../exceptions/api-error");
 const userDto = require("../dto/user-dto");
-const RefreshToken = require("../models/refresh-token");
 
 const register = async (login, password) => {
   const existingUser = await User.findOne({ login });
@@ -57,13 +56,7 @@ const userLogin = async (login, password) => {
   };
 };
 
-const logout = async (refreshToken) => {
-  const removedToken = await RefreshToken.deleteOne({ token: refreshToken });
-  return removedToken;
-};
-
 module.exports = {
   register,
   userLogin,
-  logout,
 };
