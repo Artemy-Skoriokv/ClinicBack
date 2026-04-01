@@ -61,19 +61,4 @@ const logout = async (req, res, next) => {
   }
 };
 
-const refresh = async (req, res, next) => {
-  try {
-    const tokenFromCookie = req.cookies.refreshToken;
-
-    const tokens = await authService.refresh(tokenFromCookie);
-
-    res.cookie("refreshToken", tokens.refreshToken, refreshTokenOpions);
-    res.cookie("accessToken", tokens.accessToken, accessTokenOpions);
-
-    return res.json(tokens);
-  } catch (error) {
-    next(error);
-  }
-};
-
-module.exports = { register, userLogin, logout, refresh };
+module.exports = { register, userLogin, logout };

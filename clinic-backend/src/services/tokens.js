@@ -22,14 +22,6 @@ const verifyAccessToken = (token) => {
   }
 };
 
-const verifyRefreshToken = (token) => {
-  try {
-    return jwt.verify(token, JWT_REFRESH_SECRET);
-  } catch (error) {
-    return null;
-  }
-};
-
 const saveRefreshToken = async (token, userId) => {
   const tokenData = await RefreshToken.findOne({ userId });
 
@@ -55,7 +47,6 @@ const findRefreshToken = async (token) => {
 module.exports = {
   generateTokens,
   verifyAccessToken,
-  verifyRefreshToken,
   saveRefreshToken,
   removeRefreshToken,
   findRefreshToken,

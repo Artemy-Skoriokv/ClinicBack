@@ -3,9 +3,8 @@ const User = require("../models/user");
 const {
   generateTokens,
   saveRefreshToken,
-  verifyRefreshToken,
 } = require("./tokens");
-const { badRequest, unauthorized } = require("../exceptions/api-error");
+const { badRequest } = require("../exceptions/api-error");
 const userDto = require("../dto/user-dto");
 const RefreshToken = require("../models/refresh-token");
 
@@ -63,35 +62,8 @@ const logout = async (refreshToken) => {
   return removedToken;
 };
 
-const refresh = async (refreshToken) => {
-  if (!refreshToken) {
-    throw unauthorized();
-  }
-
-  const userData = verifyRefreshToken(refreshToken);
-
-  const token = await RefreshToken.findOne({
-    token: refreshToken,
-  });
-
-  if (!token || !userData) {
-    throw unauthorized();
-  }
-
-  const user = await User.findById(userData.userId);
-
-  const tokens = generateTokens({
-    userId: userData.userId,
-    login: userData.login,
-  });
-  await saveRefreshToken(tokens.refreshToken, user._id);
-
-  return tokens;
-};
-
 module.exports = {
   register,
   userLogin,
   logout,
-  refresh,
 };
