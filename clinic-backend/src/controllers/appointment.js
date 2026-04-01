@@ -1,25 +1,5 @@
 const appointmentService = require("../services/appointment");
 
-const createAppointment = async (req, res, next) => {
-  try {
-    const userId = req.user?.id;
-
-    const { patientName, doctor, date, complaint } = req.body;
-
-    const reception = await appointmentService.createAppointment({
-      patientName,
-      doctor,
-      date,
-      complaint,
-      userId,
-    });
-
-    return res.status(201).json(reception);
-  } catch (error) {
-    next(error);
-  }
-};
-
 const getAllAppointments = async (req, res, next) => {
   try {
     const { id } = req.user;
@@ -33,6 +13,5 @@ const getAllAppointments = async (req, res, next) => {
 };
 
 module.exports = {
-  createAppointment,
   getAllAppointments,
 };
