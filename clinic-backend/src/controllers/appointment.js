@@ -48,23 +48,8 @@ const updateAppointment = async ({
   return appointment;
 };
 
-const deleteAppointment = async (req, res, next) => {
-  try {
-    const appointmentId = req.params.id;
-
-    const deletedAppointment = await appointmentService.deleteAppointment({
-      appointmentId,
-    });
-
-    return res.status(200).json({ deletedAppointment });
-  } catch (error) {
-    next(error);
-  }
-};
-
 module.exports = {
   createAppointment,
   getAllAppointments,
   updateAppointment,
-  deleteAppointment,
 };

@@ -35,17 +35,8 @@ const updateAppointment = async ({
   return appointment;
 };
 
-const deleteAppointment = async ({ appointmentId }) => {
-  const appointment = await Appointment.findOneAndDelete({
-    _id: appointmentId,
-  });
-
-  return appointment;
-};
-
 module.exports = {
   createAppointment,
   getAllAppointments,
   updateAppointment,
-  deleteAppointment,
 };
