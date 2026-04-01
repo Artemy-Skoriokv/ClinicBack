@@ -19,24 +19,7 @@ const getAllAppointments = async ({ id }) => {
   return appointments;
 };
 
-const updateAppointment = async ({
-  appointmentId,
-  patientName,
-  doctor,
-  date,
-  complaint,
-}) => {
-  const appointment = await Appointment.findByIdAndUpdate(
-    appointmentId,
-    { patientName, doctor, date, complaint },
-    { new: true },
-  );
-
-  return appointment;
-};
-
 module.exports = {
   createAppointment,
   getAllAppointments,
-  updateAppointment,
 };
