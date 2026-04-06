@@ -1,7 +1,5 @@
-const { ApiError } = require("../exceptions/api-error");
-
 const errorHandler = (err, req, res, next) => {
-  if (err instanceof ApiError) {
+  if (err.status && err.errors !== undefined) {
     return res.status(err.status).json({
       message: err.message,
       errors: err.errors,
